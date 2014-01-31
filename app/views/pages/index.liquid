@@ -1,19 +1,73 @@
 ---
-title: Home page
+title: Home
 published: true
 ---
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
     <meta charset="utf-8">
-    <title>{{ site.name }}</title>
-    <meta name="keywords" value="{{ site.meta_keywords }}" />
-    <meta name="description" value="{{ site.meta_description }}" />
+    <title>
+      {{ page.title }} - {{ site.name }}
+      | {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ site.seo_title }}{% endif %}
+    </title>
+    <meta name="description" content="{% if page.meta_description %}{{ page.meta_description }}{% else %}{{ site.meta_description }}{% endif %}">
+    <meta name="keywords" content="{{ site.meta_keywords }} {{ page.meta_keywords }}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {{ 'base.css' | stylesheet_tag }}
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-  <body>
-    <h1>{{ page.title }}</h1>
-    {% block 'main' %}
-    <p>Lorem ipsum....</p>
-    {% endblock %}
+  <body>        
+    <div class="container">
+
+      <!-- Site Title -->
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+          <h1>{{ site.name }}</h1>
+        </div>
+      </div>
+
+      <!-- Site Navigation -->
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+          <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li {% if page.slug == "index" %}class="active"{% endif %}>
+                  <a href="/">Home</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1 col-sm-12 col-sm-offset-1">
+          <h2>{{ page.title }}</h2>
+          {% block main %}
+              Coming Soon.
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script type='text/javascript' src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    {{ 'bootstrap.min.js' | javascript_tag }}
   </body>
 </html>
